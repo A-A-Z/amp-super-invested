@@ -1,21 +1,21 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <hello></hello>
+    <super-invested></super-invested>
   </div>
 </template>
 
 <script>
-import Hello from './components/Hello'
+import SuperInvested from './components/SuperInvested'
 
 export default {
   name: 'app',
   components: {
-    Hello
+    SuperInvested
   }
 }
 </script>
 
 <style lang="scss">
-   @import './assets/styles/app.scss'
+  @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600|Scope+One');
+  @import './assets/styles/app.scss'
 </style>

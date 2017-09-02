@@ -1,6 +1,115 @@
 
-$colour: #00F;
+// colours used
+$colour-big-stone: #182B49;
+$colour-cerulean: #00aae0;
+$colour-midnight: #001e41;
+$colour-midnight-blue: #003478;
+$colour-white: #FFF;
 
+// assigned colours
+$colour-background: $colour-white;
+$colour-basic-text: $colour-midnight;
+
+// fonts
+$font-main: 'Open Sans', sans-serif;
+$font-title: 'Scope One', serif; // AMP uses 'Archer SSm A', this is the closest free one
+
+html,
 body {
-  background-color: $colour;
+  background-color: $colour-background;
+  box-sizing: border-box;
+  color: $colour-basic-text;
+  font-family: $font-main;
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  text-align: center;
+  margin: 25px;
+}
+
+.button {
+  background-color: transparent;
+  border: 2px solid $colour-cerulean;
+  display: inline-block;
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.7;
+  padding: 8px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 125ms ease;
+  min-width: 180px;
+
+  &-back {
+    color: $colour-cerulean;
+
+    &:hover {
+      background-color: $colour-cerulean;
+      color: $colour-white;
+    }
+  }
+
+  &-next {
+    background-color: $colour-cerulean;
+    color: $colour-white;
+
+    &:hover {
+      background-color: transparent;
+      color: $colour-cerulean;
+    }
+  }
+}
+
+h1 {
+  color: $colour-midnight-blue;
+  font-family: $font-title;
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+}
+
+h2 {
+  color: $colour-midnight-blue;
+  font-family: $font-title;
+  font-size: 2rem;
+  font-weight: 400;
+}
+
+.super-card {
+  $max-width: 932px;
+
+  border: 4px solid $colour-big-stone;
+  border-radius: 8px;
+  margin: auto;
+  max-width: $max-width;
+  padding: 8px 24px 9px;
+
+  header {
+    h1 {
+      display: flex;
+      align-items: end;
+
+      .logo {
+        width: 130px;
+      }
+
+      span {
+        padding-left: 8px;
+      }
+    }
+  }
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+
+    .button {
+
+    }
+  }
+
 }
