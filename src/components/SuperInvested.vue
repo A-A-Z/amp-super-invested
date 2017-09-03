@@ -1,28 +1,38 @@
 <template>
   <section class="super-card">
     <header>
-      <h1><img class="logo" src="../assets/images/amp_logo.png" alt="AMP"><span>My super simulator</span></h1>
+      <h1>
+        <img class="logo" src="../assets/images/amp_logo.png" alt="AMP">
+        <span>My super simulator</span>
+      </h1>
     </header>
 
     <h2>How is your super currently invested?</h2>
 
     <div class="invest-slider">
-      <button class="slider-button minus">-</button>
+      <slider-button
+        button-class="minus"
+        button-label="Slider minus one"
+        icon="minus"
+        :on-click="sliderBack"
+      ></slider-button>
       <div class="slider-holder">
         <vue-slider
           ref="slider"
-          v-model="value"
+          v-model="sliderValue"
           :data="sliderData"
         ></vue-slider>
       </div>
-      <button class="slider-button plus">+</button>
+      <slider-button
+        button-class="plus"
+        button-label="Slider plus one"
+        icon="plus"
+        :on-click="sliderForward"
+      ></slider-button>
     </div>
 
-    <h3>{{ value }}</h3>
     <p>
-      Your aim is for moderate to higher returns primarily from capital growth
-      with some income over the long term. Investments are across all asset types,
-      with higher exposure to growth assets.
+      <strong>{{ sliderValue }}:</strong> {{ investmentOptions[indexedOptions[sliderValue]].summary }}
     </p>
 
     <nav>
@@ -40,9 +50,12 @@
 // https://github.com/NightCatSama/vue-slider-component
 
 import vueSlider from 'vue-slider-component'
+import 'vue-awesome/icons'
+import Icon from 'vue-awesome/components/Icon.vue'
+import SliderButton from './SliderButton'
 
 const data = {
-  value: 'Balanced',
+  sliderValue: '',
   sliderData: [
     'Cash',
     'Conservative',
@@ -51,22 +64,75 @@ const data = {
     'Balanced',
     'Moderately Aggressive',
     'Aggressive'
-  ]
+  ],
+  investmentOptions: [],
+  indexedOptions: {}
 }
 
 export default {
   name: 'super-invested',
 
   components: {
-    vueSlider
+    vueSlider,
+    Icon,
+    SliderButton
   },
 
   data: () => {
     return data
   },
 
+  props: [
+    'configId',
+    'defaultValue'
+  ],
+
+  beforeMount () {
+    const jsonData = JSON.parse(document.getElementById(this.configId).innerHTML)
+    console.log('beforeMount', jsonData)
+
+    this.investmentOptions = jsonData.investmentOptions
+    this.sliderData = this.formatSliderData(jsonData.investmentOptions)
+    this.sliderValue = this.defaultValue
+  },
+
   methods: {
-    // methods here
+    formatSliderData (options) {
+      let formatedOptions = []
+
+      for (let [index, option] of options.entries()) {
+        formatedOptions.push(option.name)
+        this.indexedOptions[option.name] = index
+        // console.log(index)
+      }
+
+      return formatedOptions
+    },
+
+    getValueIndex () {
+      return this.sliderData.indexOf(this.sliderValue)
+    },
+
+    sliderBack () {
+      let valueIndex = this.getValueIndex()
+      if (valueIndex > 0) {
+        valueIndex--
+      }
+      this.sliderValue = this.sliderData[valueIndex]
+    },
+
+    sliderForward () {
+      let valueIndex = this.getValueIndex()
+      if (valueIndex < this.sliderData.length) {
+        valueIndex++
+      }
+      this.sliderValue = this.sliderData[valueIndex]
+    }
   }
 }
 </script>
+
+<style lang="scss">
+  @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600|Scope+One');
+  @import '../assets/styles/app.scss'
+</style>

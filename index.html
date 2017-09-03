@@ -7,7 +7,63 @@
   </head>
   <body>
     <main>
-      <div id="app"></div>
+      <script id="super-invested-config" type="application/json">
+        {
+          "investmentOptions": [{
+              "name": "Cash",
+              "growth": 0,
+              "defensive": 100,
+              "risk": "Low",
+              "summary": "Your aim is to achieve competitive cash based returns before fees and taxes by investing in a wholesale deposit with an Australian bank.",
+              "term": " "
+          }, {
+              "name": "Conservative",
+              "growth": 25,
+              "defensive": 75,
+              "risk": "Low",
+              "summary": "Your aim is for returns primarily from income as well as some capital growth over the short to medium term. Investments are mainly in defensive assets with some exposure to growth assets.",
+              "term": "Suggested minimum investment timeframe is 3 or more years."
+          }, {
+              "name": "Cautious",
+              "growth": 40,
+              "defensive": 60,
+              "risk": "Low-medium",
+              "summary": "Your aim is for returns primarily from income as well as some capital growth over the short to medium term. Investments are mainly in defensive assets with some exposure to a diversified range of growth assets.",
+              "term": "Suggested minimum investment timeframe is 3 or more years."
+          }, {
+              "name": "Moderately Conservative",
+              "growth": 55,
+              "defensive": 45,
+              "risk": "Medium",
+              "summary": "Your aim is for moderate returns from a balance of income and capital growth over the medium to long term. Investments are a diversified mix of growth and defensive assets.",
+              "term": "Suggested minimum investment timeframe is 3 to 5 years."
+          }, {
+              "name": "Balanced",
+              "growth": 70,
+              "defensive": 30,
+              "risk": "Medium",
+              "summary": "Your aim is for moderate to higher returns primarily from capital growth with some income over the long term. Investments are across all asset types, with higher exposure to growth assets.",
+              "term": "Suggested minimum investment timeframe is 5 to 7 years."
+          }, {
+              "name": "Moderately Aggressive",
+              "growth": 85,
+              "defensive": 15,
+              "risk": "Medium-high",
+              "summary": "Your main objective is to accumulate assets by targeting capital growth over the medium to long-term. You are prepared to accept higher volatility and moderate risks to achieve these returns.",
+              "term": "Suggested minimum investment timeframe is 6 to 9 years."
+          }, {
+              "name": "Aggressive",
+              "growth": 100,
+              "defensive": 0,
+              "risk": "High",
+              "summary": "Your main objective is to achieve high long-term growth. Capital stability is not a concern as you are prepared to accept high volatility to pursue potentially greater long-term returns. Investment choices are diverse but carry with them a higher level of risk.",
+              "term": "Suggested minimum investment timeframe is 7 or more years."
+          }]
+        }
+      </script>
+      <div id="app">
+        <super-invested config-id="super-invested-config" default-value="Balanced"></super-invested>
+      </div>
     </main>
   </body>
 </html>

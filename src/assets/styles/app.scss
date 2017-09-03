@@ -114,8 +114,33 @@ h2 {
     max-width: 700px;
 
     .slider-button {
+      $batton-height: 26px;
+      $icon-height: 16px;
+
+      background-color: $colour-midnight;
+      border: 0;
+      border-radius: 5px;
+      cursor: pointer;
       flex: 1;
-      width: 30px;
+      height: $batton-height;
+      padding: (($batton-height - $icon-height) / 2) 0;
+      margin-top: -2px;
+      transition: all 0.2s ease;
+
+      svg {
+        height: $icon-height;
+        width: $icon-height;
+
+        path {
+          fill: $colour-white;
+        }
+      }
+
+      &:hover,
+      &:focus {
+        background-color: $colour-cerulean;
+        outline: 0;
+      }
     }
 
     .slider-holder {
@@ -134,10 +159,6 @@ h2 {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-
-    .button {
-
-    }
   }
 }
 
@@ -161,22 +182,25 @@ h2 {
 
     .invest-slider {
       flex-wrap: wrap;
+      justify-content: space-between;
       margin: 45px auto 20px auto;
 
       .slider-button {
         flex: 1;
+        margin: 2px 40px;
+        max-width: 60px;
 
         &.minus {
           order: 2;
         }
 
         &.plus {
-          order: 3;
+          order: 4;
         }
       }
 
       .slider-holder {
-        flex: 2 100%;
+        flex: 3 100%;
         margin: 0 30px 10px 30px;
         order: 1;
 
@@ -194,4 +218,16 @@ h2 {
       }
     }
   }
+}
+
+// accessibility
+.sr-only {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
 }
