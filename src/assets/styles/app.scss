@@ -9,10 +9,15 @@ $colour-white: #FFF;
 // assigned colours
 $colour-background: $colour-white;
 $colour-basic-text: $colour-midnight;
+$colour-button: $colour-cerulean;
+$colour-tooltip: $colour-cerulean;
 
 // fonts
 $font-main: 'Open Sans', sans-serif;
 $font-title: 'Scope One', serif; // AMP uses 'Archer SSm A', this is the closest free one
+
+// media sizes
+$mobile: 768px;
 
 html,
 body {
@@ -32,7 +37,7 @@ main {
 
 .button {
   background-color: transparent;
-  border: 2px solid $colour-cerulean;
+  border: 2px solid $colour-button;
   display: inline-block;
   font-size: 1.1rem;
   font-weight: 600;
@@ -44,21 +49,21 @@ main {
   min-width: 180px;
 
   &-back {
-    color: $colour-cerulean;
+    color: $colour-button;
 
     &:hover {
-      background-color: $colour-cerulean;
+      background-color: $colour-button;
       color: $colour-white;
     }
   }
 
   &-next {
-    background-color: $colour-cerulean;
+    background-color: $colour-button;
     color: $colour-white;
 
     &:hover {
       background-color: transparent;
-      color: $colour-cerulean;
+      color: $colour-button;
     }
   }
 }
@@ -75,7 +80,7 @@ h1 {
 h2 {
   color: $colour-midnight-blue;
   font-family: $font-title;
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: 400;
 }
 
@@ -103,13 +108,90 @@ h2 {
     }
   }
 
+  .invest-slider {
+    display: flex;
+    margin: 60px auto 20px auto;
+    max-width: 700px;
+
+    .slider-button {
+      flex: 1;
+      width: 30px;
+    }
+
+    .slider-holder {
+      flex: 10;
+
+      .vue-slider-component .vue-slider-tooltip {
+        background-color: $colour-tooltip;
+        border: 1px solid $colour-tooltip;
+        font-size: 1.5rem;
+        padding: 3px 8px;
+      }
+    }
+  }
+
   nav {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
 
     .button {
 
     }
   }
+}
 
+// for mobile only
+@media only screen and (max-width: $mobile) {
+  main {
+    margin: 3px;
+  }
+
+  h1 {
+    font-size: 1.1rem;
+  }
+
+  h2 {
+    font-size: 1.7rem;
+    line-height: 1.1;
+  }
+
+  .super-card {
+    padding: 8px 10px 9px;
+
+    .invest-slider {
+      flex-wrap: wrap;
+      margin: 45px auto 20px auto;
+
+      .slider-button {
+        flex: 1;
+
+        &.minus {
+          order: 2;
+        }
+
+        &.plus {
+          order: 3;
+        }
+      }
+
+      .slider-holder {
+        flex: 2 100%;
+        margin: 0 30px 10px 30px;
+        order: 1;
+
+        .vue-slider-component .vue-slider-tooltip {
+          font-size: 1rem;
+          padding: 2px 4px;
+        }
+      }
+    }
+
+    nav {
+      .button {
+        margin-top: 10px;
+        width: 100%;
+      }
+    }
+  }
 }

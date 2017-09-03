@@ -5,11 +5,19 @@
     </header>
 
     <h2>How is your super currently invested?</h2>
-    <vue-slider
-      ref="slider"
-      v-model="value"
-      :data="sliderData"
-    ></vue-slider>
+
+    <div class="invest-slider">
+      <button class="slider-button minus">-</button>
+      <div class="slider-holder">
+        <vue-slider
+          ref="slider"
+          v-model="value"
+          :data="sliderData"
+        ></vue-slider>
+      </div>
+      <button class="slider-button plus">+</button>
+    </div>
+
     <h3>{{ value }}</h3>
     <p>
       Your aim is for moderate to higher returns primarily from capital growth
