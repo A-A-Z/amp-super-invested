@@ -31,9 +31,24 @@
       ></slider-button>
     </div>
 
-    <p>
-      <strong>{{ sliderValue }}:</strong> {{ investmentOptions[indexedOptions[sliderValue]].summary }}
-    </p>
+    <div class="invest-data">
+      <div class="graph">
+        <PieChart
+          :chartData="graphData"
+        />
+      </div>
+      <div class="summary">
+        <p>
+          <strong>{{ sliderValue }}:</strong> {{ investmentOptions[indexedOptions[sliderValue]].summary }}
+        </p>
+        <p>
+          {{ investmentOptions[indexedOptions[sliderValue]].term }}
+        </p>
+        <p>
+          <strong>Relative risk:</strong> {{ investmentOptions[indexedOptions[sliderValue]].risk }}
+        </p>
+      </div>
+    </div>
 
     <nav>
       <a href="#" class="button button-back">Back</a>
@@ -46,13 +61,11 @@
 // to be based on:
 // https://www.amp.com.au/super/supersimulator/#!/super-invested
 
-// using
-// https://github.com/NightCatSama/vue-slider-component
-
 import vueSlider from 'vue-slider-component'
 import 'vue-awesome/icons'
 import Icon from 'vue-awesome/components/Icon.vue'
 import SliderButton from './SliderButton'
+import PieChart from './PieChart'
 
 const data = {
   sliderValue: '',
@@ -66,7 +79,8 @@ const data = {
     'Aggressive'
   ],
   investmentOptions: [],
-  indexedOptions: {}
+  indexedOptions: {},
+  graphData: {}
 }
 
 export default {
@@ -75,7 +89,8 @@ export default {
   components: {
     vueSlider,
     Icon,
-    SliderButton
+    SliderButton,
+    PieChart
   },
 
   data: () => {
@@ -88,12 +103,30 @@ export default {
   ],
 
   beforeMount () {
+    // load config data
     const jsonData = JSON.parse(document.getElementById(this.configId).innerHTML)
-    console.log('beforeMount', jsonData)
 
     this.investmentOptions = jsonData.investmentOptions
     this.sliderData = this.formatSliderData(jsonData.investmentOptions)
     this.sliderValue = this.defaultValue
+  },
+
+  watch: {
+    sliderValue: function () {
+      this.graphData = {
+        labels: ['Growth', 'Defensive'],
+        datasets: [
+          {
+            label: 'Growth/Defensive',
+            backgroundColor: ['#00aae0', '#DDD'],
+            data: [
+              this.investmentOptions[this.indexedOptions[this.sliderValue]].growth,
+              this.investmentOptions[this.indexedOptions[this.sliderValue]].defensive
+            ]
+          }
+        ]
+      }
+    }
   },
 
   methods: {
@@ -103,18 +136,13 @@ export default {
       for (let [index, option] of options.entries()) {
         formatedOptions.push(option.name)
         this.indexedOptions[option.name] = index
-        // console.log(index)
       }
 
       return formatedOptions
     },
 
-    getValueIndex () {
-      return this.sliderData.indexOf(this.sliderValue)
-    },
-
     sliderBack () {
-      let valueIndex = this.getValueIndex()
+      let valueIndex = this.indexedOptions[this.sliderValue]
       if (valueIndex > 0) {
         valueIndex--
       }
@@ -122,12 +150,13 @@ export default {
     },
 
     sliderForward () {
-      let valueIndex = this.getValueIndex()
+      let valueIndex = this.indexedOptions[this.sliderValue]
       if (valueIndex < this.sliderData.length) {
         valueIndex++
       }
       this.sliderValue = this.sliderData[valueIndex]
     }
+
   }
 }
 </script>
